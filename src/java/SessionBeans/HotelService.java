@@ -11,6 +11,7 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 
@@ -21,6 +22,8 @@ import javax.persistence.TypedQuery;
 @Stateless
 @Remote(IHotelService.class)
 @PermitAll
+
+
 public class HotelService implements IHotelService{
 
     @PersistenceContext
@@ -38,12 +41,15 @@ public class HotelService implements IHotelService{
 
     @Override
     public List<Object> getallHotels() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        TypedQuery<Object> querry = em.createQuery("select h from Hotels h", Object.class);
+        return querry.getResultList();
     }
 
     @Override
     public List<Object> getMatchingHotels() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
+       Query querry = em.createNamedQuery("Hotels.findBySterne").setParameter("sterne",5);
+       return querry.getResultList();
     }
 
   

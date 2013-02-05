@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "Staedte", catalog = "Hotelsuche", schema = "")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Staedte.findNextKnoten", query = "SELECT s.knoten1,s.knoten2,s.knoten3 FROM Staedte s WHERE s.knoten1 = :knoten1 or s.knoten2 = :knoten1 or s.knoten3 = :knoten1"),
     @NamedQuery(name = "Staedte.findAll", query = "SELECT s FROM Staedte s"),
     @NamedQuery(name = "Staedte.findByStadtID", query = "SELECT s FROM Staedte s WHERE s.stadtID = :stadtID"),
     @NamedQuery(name = "Staedte.findByStadtName", query = "SELECT s FROM Staedte s WHERE s.stadtName = :stadtName"),
