@@ -4,6 +4,8 @@
  */
 package SessionBeans;
 
+import entities.Hotels;
+import entities.Staedte;
 import interfaces.IHotelService;
 import java.util.List;
 import javax.annotation.security.PermitAll;
@@ -31,6 +33,14 @@ public class HotelService implements IHotelService{
     
    
 
+    @Override
+    public List<Hotels> getHotelFromStadt(Staedte stadt){
+        
+        Query q = em.createNamedQuery("Hotels.findHotelByStadt").setParameter("stadtid", stadt);
+        
+        
+        return q.getResultList();
+    }
    
 
     @Override
@@ -46,9 +56,11 @@ public class HotelService implements IHotelService{
     }
 
     @Override
-    public List<Object> getMatchingHotels() {
+    public List<Hotels> getMatchingHotels(Staedte stadt, int pool, int sterne) {
         
-       Query querry = em.createNamedQuery("Hotels.findBySterne").setParameter("sterne",5);
+        
+        
+       Query querry = em.createNamedQuery("Hotels.findMatchingHotelByStadt").setParameter("stadtid", stadt).setParameter("sterne", sterne).setParameter("pool", pool);
        return querry.getResultList();
     }
 
