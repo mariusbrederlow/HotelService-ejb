@@ -4,17 +4,15 @@
  */
 package SessionBeans;
 
+import DTO.HotelDTO;
 import entities.Hotels;
 import entities.Staedte;
 import interfaces.IHotelService;
 import java.util.List;
 import javax.annotation.security.PermitAll;
+import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 
 /**
@@ -28,46 +26,20 @@ import javax.persistence.TypedQuery;
 
 public class HotelService implements IHotelService{
 
-    @PersistenceContext
-    private EntityManager em;
+    @EJB
+    HotelDTO dto;
     
    
 
     @Override
-    public List<Hotels> getHotelFromStadt(Staedte stadt){
-        
-        Query q = em.createNamedQuery("Hotels.findHotelByStadt").setParameter("stadtid", stadt);
-        
-        
-        return q.getResultList();
+    public List<Hotels> sucheHotelsInStadt(Staedte stadt){        
+        return dto.getHotelFromStadt(stadt);      
     }
    
 
     @Override
-    public void createHotel(Object hotel) {
-        
-        em.persist(hotel);
+    public List<Hotels> suchePassendeHotels(Staedte stadt, int pool, int sterne) {
+       return dto.getMatchingHotels(stadt, pool, sterne);
     }
-
-    @Override
-    public List<Object> getallHotels() {
-        TypedQuery<Object> querry = em.createQuery("select h from Hotels h", Object.class);
-        return querry.getResultList();
-    }
-
-    @Override
-    public List<Hotels> getMatchingHotels(Staedte stadt, int pool, int sterne) {
-        
-        
-        
-       Query querry = em.createNamedQuery("Hotels.findMatchingHotelByStadt").setParameter("stadtid", stadt).setParameter("sterne", sterne).setParameter("pool", pool);
-       return querry.getResultList();
-    }
-
   
-
-  
-    
-    
-    
 }
