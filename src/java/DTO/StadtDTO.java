@@ -24,7 +24,9 @@ public class StadtDTO {
     private EntityManager em;
     
     
-    
+    /*
+     * Gibt eine Stadt zurueck, die anhand der 3 uebergebenen WLAN-Knoten identifiziert wird
+     */
     public Staedte findeStadt(int k1, int k2, int k3) {
         Staedte stadt;
         //Try Catch für getSingleResult einfügen
@@ -34,7 +36,9 @@ public class StadtDTO {
         return stadt;
     }
     
-
+/*
+ * Gibt eine Liste zurück, die alle möglichen 2. Knoten enthaelt
+ */
     public List<Staedte> findeZweitenKnoten(int knotenID) {
 
         List knoten;
@@ -45,14 +49,14 @@ public class StadtDTO {
         return knoten;
     }
     
-    
+    /*
+ * Gibt eine Liste zurück, die alle möglichen 3. Knoten enthaelt
+ */
     public List<Staedte> findeDrittenKnoten(int knotenID, int knotenID2) {
-        System.out.println("trdKnotenLesen");
+        
         List knoten;
 
-
         Query q = em.createNamedQuery("Staedte.thirdKnoten").setParameter("knoten1", knotenID).setParameter("knoten2", knotenID2);
-
         knoten = q.getResultList();
 
         return knoten;

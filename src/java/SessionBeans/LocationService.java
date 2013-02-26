@@ -16,6 +16,11 @@ import javax.ejb.Stateless;
  *
  * @author mariusbrederlow
  */
+
+
+/*
+ * Sucht Staedte im DTO und gibt die Passende Stadt bzw eine Liste moeglicher Knoten zurueck.
+ */
 @Stateless
 @Remote(ILocationService.class)
 public class LocationService implements ILocationService {
